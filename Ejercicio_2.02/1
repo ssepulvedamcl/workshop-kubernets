@@ -1,0 +1,8 @@
+kind: Pod
+apiVersion: v1
+metadata: 
+  name: k8s-for-beginners
+spec:
+  containers:
+    - name: k8s-for-beginners
+      image: ssepulvedacl/k8s-for-beginners
