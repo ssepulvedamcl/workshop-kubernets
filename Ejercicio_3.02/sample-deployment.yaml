@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeserve
+  labels:
+    app: kubeserve
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubeserve
+  template:
+    metadata:
+      labels:
+        apps: kubeserve
+    spec:
+      containers:
+      - name: caddy
+        image: caddy:2.8
+        ports:
+        - containerPort: 80
