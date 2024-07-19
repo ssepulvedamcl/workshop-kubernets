@@ -1,0 +1,125 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"liveness-probe","namespace":"default"},"spec":{"containers":[{"command":["/bin/bash","-ec","touch /tmp/live; sleep 30; sleep 600"],"image":"ubuntu","livenessProbe":{"exec":{"command":["cat","/tmp/live"]},"initialDelaySeconds":5,"periodSeconds":5},"name":"ubuntu-container"}]}}
+  creationTimestamp: "2024-07-10T15:05:07Z"
+  name: liveness-probe
+  namespace: default
+  resourceVersion: "4370"
+  uid: e47edc64-3e9b-4f8c-a6de-9385af7ac7d6
+spec:
+  containers:
+  - command:
+    - /bin/bash
+    - -ec
+    - touch /tmp/live; sleep 30; rm /tmp/live; sleep 600
+    image: ubuntu
+    imagePullPolicy: Always
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/live
+      failureThreshold: 3
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: ubuntu-container
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-67qj8
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always 
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-67qj8
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2024-07-10T15:05:12Z"
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2024-07-10T15:05:07Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2024-07-10T15:15:45Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2024-07-10T15:15:45Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2024-07-10T15:05:07Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://13561ef16e7088356e526a3e2b892d1d9ee0e869ab9a85ad83363e5e30d4fcc7
+    image: ubuntu:latest
+    imageID: docker-pullable://ubuntu@sha256:2e863c44b718727c860746568e1d54afd13b2fa71b160f5cd9058fc436217b30
+    lastState:
+      terminated:
+        containerID: docker://8500ecbc3b4bc3e224adc4711496475f9c2d657efa11f8b9805cf5ba2f9a4104
+        exitCode: 0
+        finishedAt: "2024-07-10T15:15:41Z"
+        reason: Completed
+        startedAt: "2024-07-10T15:05:11Z"
+    name: ubuntu-container
+    ready: true
+    restartCount: 1
+    started: true
+    state:
+      running:
+        startedAt: "2024-07-10T15:15:44Z"
+  hostIP: 192.168.49.2
+  hostIPs:
+  - ip: 192.168.49.2
+  phase: Running
+  podIP: 10.244.0.6
+  podIPs:
+  - ip: 10.244.0.6
+  qosClass: BestEffort
+  startTime: "2024-07-10T15:05:07Z"
