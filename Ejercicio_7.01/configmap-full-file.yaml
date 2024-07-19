@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  application.properties: |
+    partner-url=https://www.fedex.com
+    partner-key=1234
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2024-07-17T15:32:22Z"
+  name: full-file-map
+  namespace: configmap-test
+  resourceVersion: "7234"
+  uid: 118c25af-0ee0-460e-8e47-8fe8ae454023
